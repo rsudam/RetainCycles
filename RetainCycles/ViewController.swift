@@ -12,9 +12,34 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ShowRed", style: .plain, target: self, action: #selector(handleRedController))
     }
 
+    @objc fileprivate func handleRedController() {
+        
+        navigationController?.pushViewController(RedController(), animated: true)
+    }
 
+}
+
+class Service {
+    var redController: RedController?
+}
+
+class RedController: UITableViewController {
+    
+    let service = Service()
+    
+    deinit {
+        print("OS removed red controller")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.backgroundColor = .red
+        service.redController = self
+        
+    }
 }
 
